@@ -1,4 +1,4 @@
-import { getAllBookmark, getComments } from './server/bookmark';
+import { getAllBookmark, getComments } from './repository';
 
 const getAllBookmarkAndComments = async () => {
   const bookmarks = await getAllBookmark();

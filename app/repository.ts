@@ -2,6 +2,12 @@
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 
+const sleep = async (ms: number) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 type Bookmark = {
   id: number;
   title: string;
@@ -14,6 +20,8 @@ type Comment = {
 }
 
 const openDB = async () => {
+  // add sleep to simulate slow database connection
+  await sleep(500)
   return open({
     filename: './db/database.db',
     driver: sqlite3.Database
@@ -28,8 +36,9 @@ export const getAllBookmark = async (): Promise<Bookmark[]> => {
 
 export const getComments = async (bookmarkIds: number[]) => {
   const db = await openDB();
-  const query = `SELECT bookmark_id, comment from comment where bookmark_id in (${bookmarkIds.join(',')})`;
-  const comments = await db.all(query);
+  // use prepared statement to prevent SQL injection
+  const query = `SELECT bookmark_id, comment from comment where bookmark_id in (${bookmarkIds.map(() => '?').join(',')})`;
+  const comments = await db.all(query, bookmarkIds);
   const commentsByBookmarkId: { [key: number]: Comment[] } = {};
   comments.forEach((comment) => {
     if (commentsByBookmarkId[comment.bookmark_id]) {
