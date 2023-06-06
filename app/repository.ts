@@ -50,3 +50,9 @@ export const getComments = async (bookmarkIds: number[]) => {
   return commentsByBookmarkId;
 }
 
+export const addBookmark = async (bookmark: Omit<Bookmark, 'id'>) => {
+  const db = await openDB();
+  const query = 'INSERT INTO bookmark (title, url) VALUES (?, ?)';
+  const result = await db.run(query, [bookmark.title, bookmark.url]);
+  return result.lastID;
+}
