@@ -56,3 +56,9 @@ export const addBookmark = async (bookmark: Omit<Bookmark, 'id'>) => {
   const result = await db.run(query, [bookmark.title, bookmark.url]);
   return result.lastID;
 }
+
+export const removeBookmark = async (bookmarkId: number) => {
+  const db = await openDB();
+  const query = 'DELETE FROM bookmark where id = ?';
+  return db.run(query, [bookmarkId]);
+}

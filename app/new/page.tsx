@@ -1,3 +1,4 @@
+import { SubmitButton } from "../_components/SubmitButton";
 import { addBookmark } from "../repository";
 import { redirect } from 'next/navigation';
 
@@ -24,7 +25,7 @@ export default function New() {
           <span className="text-xl">URL</span>
           <input type="text" name="url" className="border border-gray-300 rounded-md p-2" />
         </label>
-        <button className="bg-violet-500 hover:bg-violet-400 text-white rounded-md p-2">Submit</button>
+        <SubmitButton label="Submit" pendingLabel="Sending..." />
       </form>
     </main>
   )
