@@ -12,10 +12,6 @@ type Bookmark = {
   id: number;
   title: string;
   url: string;
-}
-
-type Comment = {
-  bookmark_id: number;
   comment: string;
 }
 
@@ -30,30 +26,14 @@ const openDB = async () => {
 
 export const getAllBookmark = async (): Promise<Bookmark[]> => {
   const db = await openDB();
-  const query = 'SELECT id, title, url from bookmark';
+  const query = 'SELECT id, title, url, comment from bookmark';
   return db.all(query);
-}
-
-export const getComments = async (bookmarkIds: number[]) => {
-  const db = await openDB();
-  // use prepared statement to prevent SQL injection
-  const query = `SELECT bookmark_id, comment from comment where bookmark_id in (${bookmarkIds.map(() => '?').join(',')})`;
-  const comments = await db.all(query, bookmarkIds);
-  const commentsByBookmarkId: { [key: number]: Comment[] } = {};
-  comments.forEach((comment) => {
-    if (commentsByBookmarkId[comment.bookmark_id]) {
-      commentsByBookmarkId[comment.bookmark_id].push(comment);
-    } else {
-      commentsByBookmarkId[comment.bookmark_id] = [comment];
-    }
-  });
-  return commentsByBookmarkId;
 }
 
 export const addBookmark = async (bookmark: Omit<Bookmark, 'id'>) => {
   const db = await openDB();
-  const query = 'INSERT INTO bookmark (title, url) VALUES (?, ?)';
-  const result = await db.run(query, [bookmark.title, bookmark.url]);
+  const query = 'INSERT INTO bookmark (title, url, comment) VALUES (?, ?, ?)';
+  const result = await db.run(query, [bookmark.title, bookmark.url, bookmark.comment]);
   return result.lastID;
 }
 
@@ -62,3 +42,62 @@ export const removeBookmark = async (bookmarkId: number) => {
   const query = 'DELETE FROM bookmark where id = ?';
   return db.run(query, [bookmarkId]);
 }
+
+export type HNStory = {
+  id: number;
+  rank: number;
+  title: string;
+  by: string;
+  url: string;
+  kids: [];
+}
+
+export type HNComment = {
+  id: number;
+  by: string;
+  text: string;
+}
+
+export const fetchHackerNews = async (count: number): Promise<HNStory[]> => {
+  const ids = await fetch(
+    "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty"
+  ).then(res => res.json());
+  const stories: any = await Promise.all(
+    ids.slice(0, count).map(
+      async (id: number, index: number): Promise<HNStory> => {
+        const story: HNStory = await fetch(
+          `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`
+        ).then(res => res.json());
+        story.rank = index + 1;
+        return story;
+      }
+    )
+  );
+  console.log(stories);
+  return stories.sort((a: HNStory, b: HNStory) => a.rank - b.rank);
+};
+
+export const fetchHackerNewsComments = async (
+  commentIds: number[]
+): Promise<HNComment[]> => {
+  return Promise.all(
+    commentIds.map(commentId =>
+      fetch(
+        `https://hacker-news.firebaseio.com/v0/item/${commentId}.json?print=pretty`
+      ).then(res => res.json())
+    )
+  ).then(comments => comments.filter(Boolean));
+};
+
+export const filterStories = (
+  stories: HNStory[],
+  filterText: string
+): HNStory[] => {
+  const loweredFilterText = filterText.toLowerCase();
+  return stories.filter(
+    story =>
+      !loweredFilterText ||
+      story.title.toLowerCase().indexOf(loweredFilterText) !== -1 ||
+      story.by.toLowerCase().indexOf(loweredFilterText) !== -1
+  );
+};
