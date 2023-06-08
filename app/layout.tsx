@@ -1,3 +1,4 @@
+import { HeaderTitle } from './_components/HeaderTitle'
 import { NavLinks } from './_components/NavLinks'
 import './globals.css'
 import { Inter } from 'next/font/google'
@@ -18,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <header>
-          <h1 className="text-5xl text-center py-4">Next HackerNews</h1>
+          <HeaderTitle>Next HackerNews</HeaderTitle>
           <NavLinks links={[{ text: "Home", url: "/"}, { text: "My", url: "/my" }]} />
         </header>
         {children}

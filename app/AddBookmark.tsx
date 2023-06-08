@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { SubmitButton } from "./_components/SubmitButton";
 import { Button } from "./_components/Button";
+import { Dialog } from "./_components/Dialog";
 
 export const AddBookmark = ({ title, url, addBookmark } : { title: string, url: string, addBookmark: (formData: FormData) => Promise<void> }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -13,7 +14,7 @@ export const AddBookmark = ({ title, url, addBookmark } : { title: string, url: 
       >
         Save
       </Button>
-      <dialog ref={dialogRef} className="w-3/5 h-3/5 backdrop:bg-gray-400 opa backdrop:opacity-50 rounded-md">
+      <Dialog ref={dialogRef}>
         <h2 className="text-2xl">Save to Bookmark</h2>
         <p className="text-lg underline text-violet-500 hover:text-violet-400 py-4"><a href={url} target="_blank">{title}</a></p>
         <form action={addBookmark} className="flex flex-col gap-2 py-4 w-3/5">
@@ -27,7 +28,7 @@ export const AddBookmark = ({ title, url, addBookmark } : { title: string, url: 
             <SubmitButton label="Add" pendingLabel="Sending..." />
           </div>
         </form>
-      </dialog>
+      </Dialog>
     </>
   )
 }
