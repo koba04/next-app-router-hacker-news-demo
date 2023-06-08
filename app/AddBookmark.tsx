@@ -2,24 +2,30 @@
 
 import { useRef } from "react";
 import { SubmitButton } from "./_components/SubmitButton";
+import { Button } from "./_components/Button";
 
 export const AddBookmark = ({ title, url, addBookmark } : { title: string, url: string, addBookmark: (formData: FormData) => Promise<void> }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   return (
     <>
-    <button
-      className="bg-slate-200 hover:bg-slate-300 rounded-md p-1"
-      onClick={() => dialogRef.current?.showModal()}
-    >
-      Add Bookark
-    </button>
-      <dialog ref={dialogRef}>
-        <h2>Add Bookmark</h2>
-        <form action={addBookmark}>
-          <input type="text" name="comment" />
+      <Button
+        onClick={() => dialogRef.current?.showModal()}
+      >
+        Save
+      </Button>
+      <dialog ref={dialogRef} className="w-3/5 h-3/5 backdrop:bg-gray-400 opa backdrop:opacity-50 rounded-md">
+        <h2 className="text-2xl">Save to Bookmark</h2>
+        <p className="text-lg underline text-violet-500 hover:text-violet-400 py-4"><a href={url} target="_blank">{title}</a></p>
+        <form action={addBookmark} className="flex flex-col gap-2 py-4 w-3/5">
+          <label className="flex flex-col gap-2">
+            <span className="text-lg">Comment</span>
+            <input type="text" name="comment" autoFocus className="border-2 border-gray-200 w-full p-1" />
+          </label>
           <input type="hidden" name="url" value={url} />
           <input type="hidden" name="title" value={title} />
-          <SubmitButton label="Add" pendingLabel="Sending..." />
+          <div className="text-right">
+            <SubmitButton label="Add" pendingLabel="Sending..." />
+          </div>
         </form>
       </dialog>
     </>

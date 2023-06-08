@@ -26,7 +26,7 @@ const openDB = async () => {
 
 export const getAllBookmark = async (): Promise<Bookmark[]> => {
   const db = await openDB();
-  const query = 'SELECT id, title, url, comment from bookmark';
+  const query = 'SELECT id, title, url, comment from bookmark ORDER BY id DESC';
   return db.all(query);
 }
 
