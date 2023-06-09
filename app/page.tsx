@@ -3,6 +3,8 @@ import { AddBookmark } from "./AddBookmark";
 import { add } from "./action";
 import { Main } from "./_components/Main";
 import { List, ListItem } from "./_components/List";
+import { ExternalLink } from "./_components/ExternalLink";
+import { HNStoryRow } from "./_components/HNStoryRow";
 
 export default async function Home() {
   const news = await fetchHackerNews(50);
@@ -10,17 +12,15 @@ export default async function Home() {
     <Main>
       <List>
         {news.map(({ id, rank, title, url }) => (
-          <ListItem key={url}>
-            <div className="flex w-4/5">
-              <span className="grow-0 shrink-0 w-12 text-2xl self-center text-center">{rank}</span>
-              {url ?
-                <a href={url} target="_blank" className="flex-grow text-xl underline text-violet-500 hover:text-violet-400">
-                  {title}
-                </a>
-              : <span className="text-xl">{title}</span>
+          <ListItem key={id}>
+            <HNStoryRow
+              rank={rank}
+              title={url
+                ? <ExternalLink href={url}>{title}</ExternalLink>
+                : <span>{title}</span>
               }
-              {url && <div className="inline-block text-sm px-4 self-center"><AddBookmark url={url} title={title} addBookmark={add} /></div>}
-            </div>
+              action={url && <AddBookmark url={url} title={title} addBookmark={add} />}
+            />
           </ListItem>
         ))}
       </List>
