@@ -6,8 +6,8 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Next HackerNews',
-  description: 'HackerNews App with Next App Router',
+  title: 'RSC HackerNews Bookmark',
+  description: 'HackerNews Bookmark App with Next App Router',
 }
 
 export default function RootLayout({
@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <header>
-          <HeaderTitle>Next HackerNews</HeaderTitle>
+          <HeaderTitle>RSC HackerNews Bookmark</HeaderTitle>
           <NavLinks links={[{ text: "Home", url: "/"}, { text: "My", url: "/my" }]} />
         </header>
         {children}
