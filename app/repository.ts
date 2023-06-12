@@ -47,7 +47,7 @@ export type HNStory = {
   rank: number;
   title: string;
   by: string;
-  url: string;
+  url?: string;
   kids: [];
 }
 

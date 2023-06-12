@@ -35,6 +35,6 @@ export const NavLinks = ({ links }: { links: NavLink[]}) => {
           {i !== links.length - 1 ? "/" : ""}
         </Fragment>
       ))}
-  </nav>
+    </nav>
   )
 }
