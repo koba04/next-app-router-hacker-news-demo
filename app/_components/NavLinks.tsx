@@ -26,7 +26,6 @@ const NavLink = ({ link, currentPathname }: { link: NavLink, currentPathname: st
 
 export const NavLinks = ({ links }: { links: NavLink[]}) => {
   const pathname = usePathname();
-  console.log(pathname)
   return (
     <nav className="flex justify-center gap-4">
       {links.map((link, i) => (

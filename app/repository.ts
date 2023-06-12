@@ -72,7 +72,7 @@ export const fetchHackerNews = async (count: number): Promise<HNStory[]> => {
       }
     )
   );
-  console.log(stories);
+  // console.log(stories);
   return stories.sort((a: HNStory, b: HNStory) => a.rank - b.rank);
 };
 
