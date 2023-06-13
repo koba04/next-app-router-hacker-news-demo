@@ -1,12 +1,20 @@
 'use client';
 
-import { SubmitButton } from "../_components/SubmitButton";
+import { useTransition } from "react";
+import { Button } from "../_components/Button";
 
-export const RemoveBookmark = ({ id, removeBookmark }: { id: number, removeBookmark: (formData: FormData) => Promise<void> }) => {
+export const RemoveBookmark = ({ id, removeBookmark }: { id: number, removeBookmark: (id: number) => Promise<void> }) => {
+  const [isPending, startTransition] = useTransition();
   return (
-    <form action={removeBookmark}>
-      <input type="hidden" name="id" value={id} />
-      <SubmitButton label="Delete" pendingLabel="Sending..." />
-    </form>
+      <Button
+        type="button"
+        onClick={() => {
+          startTransition(async () => {
+            await removeBookmark(id);
+          })
+        }}
+      >
+        {isPending ? 'Sending...' : 'Delete'}
+      </Button>
   )
 }

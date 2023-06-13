@@ -3,8 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { removeBookmark } from '../repository';
 
-export async function remove(formData: FormData) {
-  const id = Number(formData.get("id"));
+export async function remove(id: number) {
   await removeBookmark(id);
   revalidatePath("/my");
 }
