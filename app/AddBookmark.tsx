@@ -6,8 +6,9 @@ import { Button } from "./_components/Button";
 import { Dialog, DialogButtonWrapper } from "./_components/Dialog";
 import { ExternalLink } from "./_components/ExternalLink";
 import { CommentInput } from "./_components/CommentInput";
+import { add } from "./action";
 
-export const AddBookmark = ({ title, url, addBookmark } : { title: string, url: string, addBookmark: (formData: FormData) => Promise<void> }) => {
+export const AddBookmark = ({ title, url } : { title: string, url: string }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   return (
     <>
@@ -18,7 +19,7 @@ export const AddBookmark = ({ title, url, addBookmark } : { title: string, url: 
       </Button>
       <Dialog ref={dialogRef} title="Save to Bookmark">
         <ExternalLink href={url}>{title}</ExternalLink>
-        <form action={addBookmark}>
+        <form action={add}>
           <CommentInput type="text" name="comment" label="Comment" autoFocus />
           <input type="hidden" name="url" value={url} />
           <input type="hidden" name="title" value={title} />

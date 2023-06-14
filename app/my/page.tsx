@@ -1,6 +1,5 @@
 import { RemoveBookmark } from './RemoveBookmark';
 import { getAllBookmark } from '../repository';
-import { remove } from './action';
 import { Main } from '../_components/Main';
 import { List, ListItem } from '../_components/List';
 import { ExternalLink } from '../_components/ExternalLink';
@@ -15,7 +14,7 @@ export default async function Home() {
           <ListItem key={url}>
             <BookmarkRow
               link={<ExternalLink href={url}>{title}</ExternalLink>}
-              action={<RemoveBookmark id={id} removeBookmark={remove} />}
+              action={<RemoveBookmark id={id} />}
               comment={comment}
             />
           </ListItem>

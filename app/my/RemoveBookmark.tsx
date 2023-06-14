@@ -2,15 +2,16 @@
 
 import { useTransition } from "react";
 import { Button } from "../_components/Button";
+import { remove } from './action';
 
-export const RemoveBookmark = ({ id, removeBookmark }: { id: number, removeBookmark: (id: number) => Promise<void> }) => {
+export const RemoveBookmark = ({ id }: { id: number }) => {
   const [isPending, startTransition] = useTransition();
   return (
       <Button
         type="button"
         onClick={() => {
           startTransition(async () => {
-            await removeBookmark(id);
+            await remove(id);
           })
         }}
       >

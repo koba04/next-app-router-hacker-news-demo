@@ -1,6 +1,5 @@
 import { fetchHackerNews } from "./repository"
 import { AddBookmark } from "./AddBookmark";
-import { add } from "./action";
 import { Main } from "./_components/Main";
 import { List, ListItem } from "./_components/List";
 import { ExternalLink } from "./_components/ExternalLink";
@@ -19,7 +18,7 @@ export default async function Home() {
                 ? <ExternalLink href={url}>{title}</ExternalLink>
                 : <span>{title}</span>
               }
-              action={url && <AddBookmark url={url} title={title} addBookmark={add} />}
+              action={url && <AddBookmark url={url} title={title} />}
             />
           </ListItem>
         ))}
