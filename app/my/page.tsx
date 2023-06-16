@@ -11,7 +11,7 @@ export default async function Home() {
     <Main>
       <List>
         {bookmarks.map(({ id, title, url, comment }) => (
-          <ListItem key={url}>
+          <ListItem key={id}>
             <BookmarkRow
               link={<ExternalLink href={url}>{title}</ExternalLink>}
               action={<RemoveBookmark id={id} />}
