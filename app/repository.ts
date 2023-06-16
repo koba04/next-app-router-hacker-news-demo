@@ -46,15 +46,7 @@ export type HNStory = {
   id: number;
   rank: number;
   title: string;
-  by: string;
   url?: string;
-  kids: [];
-}
-
-export type HNComment = {
-  id: number;
-  by: string;
-  text: string;
 }
 
 export const fetchHackerNews = async (count: number): Promise<HNStory[]> => {
@@ -74,29 +66,4 @@ export const fetchHackerNews = async (count: number): Promise<HNStory[]> => {
   );
   // console.log(stories);
   return stories.sort((a: HNStory, b: HNStory) => a.rank - b.rank);
-};
-
-export const fetchHackerNewsComments = async (
-  commentIds: number[]
-): Promise<HNComment[]> => {
-  return Promise.all(
-    commentIds.map(commentId =>
-      fetch(
-        `https://hacker-news.firebaseio.com/v0/item/${commentId}.json?print=pretty`
-      ).then(res => res.json())
-    )
-  ).then(comments => comments.filter(Boolean));
-};
-
-export const filterStories = (
-  stories: HNStory[],
-  filterText: string
-): HNStory[] => {
-  const loweredFilterText = filterText.toLowerCase();
-  return stories.filter(
-    story =>
-      !loweredFilterText ||
-      story.title.toLowerCase().indexOf(loweredFilterText) !== -1 ||
-      story.by.toLowerCase().indexOf(loweredFilterText) !== -1
-  );
 };
