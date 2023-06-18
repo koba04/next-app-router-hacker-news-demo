@@ -7,7 +7,7 @@ This app is aimed to demonstrate React Server Components and Server Action using
 This app requires `sqlite3`, please install it if it's not available on your machine.
 
 ```bash
-sqlite3 db/database.db < db/schema.sql
+sqlite3 db/bookmark.db < db/schema.sql
 pnpm dev
 ```
 

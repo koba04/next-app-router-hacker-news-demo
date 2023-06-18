@@ -18,7 +18,7 @@ const openDB = async () => {
   // add sleep to simulate slow database connection
   await sleep(500)
   return open({
-    filename: './db/database.db',
+    filename: './db/bookmark.db',
     driver: sqlite3.Database
   });
 }
