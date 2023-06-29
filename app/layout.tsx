@@ -1,9 +1,6 @@
 import { HeaderTitle } from './_components/HeaderTitle'
 import { NavLinks } from './_components/NavLinks'
 import './globals.css'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'RSC HackerNews Bookmark',
@@ -17,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <header>
           <HeaderTitle>RSC HackerNews Bookmark</HeaderTitle>
           <NavLinks links={[{ text: "Home", url: "/"}, { text: "My", url: "/my" }]} />
