@@ -2,7 +2,7 @@
 
 This app is aimed to demonstrate React Server Components and Server Action using Next App Router.
 
-<img width="1469" alt="image" src="https://github.com/koba04-labs/next-app-router-hacker-news-demo/assets/250407/cfc9f89d-9a39-45b5-91f7-ff1aa8942fa7">
+<img width="600" alt="image" src="https://github.com/koba04/next-app-router-hacker-news-demo/assets/250407/6ea8f041-6143-4ce1-b797-4f1b421b4943">
 
 ## Getting Started
 
