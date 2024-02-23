@@ -1,5 +1,5 @@
 'use client';
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import { Button } from "./Button";
 
 export const SubmitButton = ({ label, pendingLabel }: { label: string, pendingLabel: string }) => {
