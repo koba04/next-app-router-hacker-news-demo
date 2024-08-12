@@ -14,4 +14,6 @@ export async function add(formData: FormData) {
   await addBookmark({ title, url, comment });
   revalidatePath("/my");
   redirect("/my");
+
+  return null;
 }
