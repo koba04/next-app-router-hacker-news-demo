@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from "react";
+import { useRef, useActionState } from "react";
 import { SubmitButton } from "./_components/SubmitButton";
 import { Button } from "./_components/Button";
 import { Dialog, DialogButtonWrapper } from "./_components/Dialog";
@@ -10,6 +10,7 @@ import { add } from "./action";
 
 export const AddBookmark = ({ title, url } : { title: string, url: string }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const [_, addAction] = useActionState((_: null, formData: FormData) => add(formData), null);
   return (
     <>
       <Button
